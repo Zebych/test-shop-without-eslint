@@ -17,7 +17,7 @@ const arrData: Array<ArrDataType> = [
 ]
 
 export const serverAPI = {
-    goodsAll(response: number) {
+    getGoodsAll(response: number) {
         return new Promise((res, rej) => {
             setTimeout(() => {
                 if (response === 1) {
@@ -26,16 +26,20 @@ export const serverAPI = {
                         data: arrData,
                     })
                 }
-                res({result: 'error'})
+                rej({result: 'error',data:[]})
             }, 1000)
         })
     }
 }
 
 //Types
-type ArrDataType = {
+export type ArrDataType = {
     name: string
     picture: string
     id: number
     price: number
+}
+export type ResDatatype={
+    result:string
+    data:Array<ArrDataType>
 }

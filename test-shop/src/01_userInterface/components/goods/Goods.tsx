@@ -1,29 +1,33 @@
-import React, { memo, ReactElement } from 'react';
+import React, {memo, ReactElement, useEffect} from 'react';
 
-import photo1 from '../../../04_assets/img/6-1000x1000.jpg';
-import photo3 from '../../../04_assets/img/6064641689.jpg';
-import photo2 from '../../../04_assets/img/680395566_w640_h640_kruzhka-s-prikolom.jpg';
-import photo4 from '../../../04_assets/img/kruzhka_sgushchenka_img.webp';
-import photo5 from '../../../04_assets/img/people_2_mug_chameleon_front_whitered_500.jpg';
-import photo7 from '../../../04_assets/img/pic1white.jpg';
-import photo6 from '../../../04_assets/img/product_57508_0_0_0.jpg';
 import styleContainer from '../../../05_common/styles/Container.module.css';
 
 import styles from './Goods.module.css';
-import { Product } from './product';
+import {Product} from './product';
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../../02_bisnessLogik/store";
+import {goodsAllTC} from "../../../02_bisnessLogik/goods-reducer";
+import {ArrDataType} from "../../../03.1_server simulator/server";
 
 export const Goods = memo(
-  (): ReactElement => (
-    <div className={styles.goodsBlock}>
-      <div className={`${styleContainer.container} ${styles.goodsContainer}`}>
-        <Product photo={photo1} />
-        <Product photo={photo2} />
-        <Product photo={photo3} />
-        <Product photo={photo4} />
-        <Product photo={photo5} />
-        <Product photo={photo6} />
-        <Product photo={photo7} />
-      </div>
-    </div>
-  ),
+    (): ReactElement => {
+        const goods = useSelector<AppRootStateType, Array<ArrDataType>>(state => state.goods.data)
+        const dispatch = useDispatch()
+        useEffect(() => {
+            dispatch(goodsAllTC(1))
+        }, [goods])
+        return (
+            <div className={styles.goodsBlock}>
+                <div className={`${styleContainer.container} ${styles.goodsContainer}`}>
+                    {goods.map((g) => {
+                        return <Product photo={g.picture}
+                                        name={g.name}
+                                        id={g.id}
+                                        price={g.price}
+                        />
+                    })}
+                </div>
+            </div>
+        )
+    },
 );
