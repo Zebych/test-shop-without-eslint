@@ -3,6 +3,7 @@ import SuperButton from "../../../../05_common/Button/SuperButton";
 import {goodsAllTC} from "../../../../02_bisnessLogik/goods-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../02_bisnessLogik/store";
+import {addInCartTC} from "../../../../02_bisnessLogik/cart-reducer";
 
 type ProductPropsType = {
     id: number
@@ -20,7 +21,7 @@ export const Product: FC<ProductPropsType> = memo(
 
         const dispatch = useDispatch()
         const addInCart = () => {
-            dispatch(goodsAllTC(1))
+            dispatch(addInCartTC(id))
         }
 
         return (

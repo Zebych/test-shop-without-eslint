@@ -26,8 +26,15 @@ export const serverAPI = {
                         data: arrData,
                     })
                 }
-                rej({result: 'error',data:[]})
+                res({result: 'error',data:[]})
             }, 1000)
+        })
+    },
+    getCart(id:number){
+        return new Promise((res,rej)=>{
+            setTimeout(()=>{
+                res(arrData.find((f)=>f.id===id))
+            })
         })
     }
 }

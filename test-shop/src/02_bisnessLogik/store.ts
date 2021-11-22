@@ -2,9 +2,11 @@ import {combineReducers} from "redux";
 import {goodsReducer} from "./goods-reducer";
 import {configureStore} from "@reduxjs/toolkit";
 import thunkMiddleware from 'redux-thunk'
+import {cartReducer} from "./cart-reducer";
 
 const rootReducer = combineReducers({
     goods: goodsReducer,
+    cart: cartReducer,
 })
 export const store = configureStore({
     reducer: rootReducer,

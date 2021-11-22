@@ -7,7 +7,7 @@ const initState:ResDatatype = {
     result: '',
     data: [
         {name: '', picture: '', id: 0, price: 0},
-    ]
+    ],
 }
 const slice = createSlice({
     name: 'goods',
