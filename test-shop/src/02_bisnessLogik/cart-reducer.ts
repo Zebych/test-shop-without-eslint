@@ -13,10 +13,13 @@ const slice = createSlice({
         setCart(state, action: PayloadAction<{ addProduct: ArrDataType }>) {
             state.addedCart = [...state.addedCart, action.payload.addProduct]
         },
-        totalPrice(state, action: PayloadAction) {
+        totalPrice(state) {
             state.sumPrice = state.addedCart.reduce((acc, el) => {
                 return acc + el.price
             }, 0)
+        },
+        deleteCart(state,action:PayloadAction<{id:number}>){
+            state.addedCart=state.addedCart.filter((f)=>f.id !== action.payload.id)
         }
     }
 })
@@ -25,6 +28,7 @@ export const cartReducer = slice.reducer
 //Actions
 const {setCart} = slice.actions
 export const {totalPrice} = slice.actions
+export const {deleteCart} = slice.actions
 //Thunk
 export const addInCartTC = (id: number) => (dispatch: Dispatch) => {
     serverAPI.getCart(id).then((res: any) => {
