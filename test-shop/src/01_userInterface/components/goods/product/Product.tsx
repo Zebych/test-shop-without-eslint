@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../02_bisnessLogik/store";
 import {addInCartTC} from "../../../../02_bisnessLogik/cart-reducer";
 
-type ProductPropsType = {
+export type ProductPropsType = {
     id: number
     name: string
     photo: string

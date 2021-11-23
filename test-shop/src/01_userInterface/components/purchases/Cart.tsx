@@ -1,19 +1,33 @@
 import React, {memo, ReactElement, useEffect} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import { totalPrice } from '../../../02_bisnessLogik/cart-reducer';
 import {AppRootStateType} from "../../../02_bisnessLogik/store";
 import {ArrDataType} from "../../../03.1_server simulator/server";
+import {ProductsList} from "./productsList/ProductsLists";
 
 export const Cart = memo(
     (): ReactElement => {
         const productInCart = useSelector<AppRootStateType, Array<ArrDataType>>
         (state => state.cart.addedCart)
-        useEffect(()=>{
-            console.log(productInCart)
-        },[productInCart])
+        const amountOfPurchases = useSelector<AppRootStateType, number >
+        (state => state.cart.sumPrice)
+            const dispatch=useDispatch()
+                useEffect(() => {
+                   dispatch(totalPrice())
+                }, [productInCart])
 
         return (
             <div>
-                <p>тележка</p>
+                <div><p>список покупок</p>
+                    {productInCart.map(p => {
+                        return <ProductsList name={p.name}
+                                             price={p.price}
+                                             photo={p.picture}
+                                             id={p.id}/>
+                    })
+                    }
+                </div>
+                <div>{amountOfPurchases}</div>
             </div>
         )
     },
