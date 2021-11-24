@@ -7,7 +7,7 @@ type ProductsListPropsType = {
     name: string
     price: number
     id: number
-    deleteProduct: (id: number) => void
+    subtractProduct: (id: number) => void
     AddProduct: (id:number) => void
 }
 export const ProductsList: FC<ProductsListPropsType> = memo(
@@ -15,12 +15,12 @@ export const ProductsList: FC<ProductsListPropsType> = memo(
          picture,
          name,
          price,
-         deleteProduct,
+         subtractProduct,
          id,
          AddProduct,
          count,
      }): ReactElement => {
-        const onDeleteProductClick = useCallback(() => deleteProduct(id), [])
+        const onSubtractProductClick = useCallback(() => subtractProduct(id), [count])
         const onAddProductClick = useCallback(() => AddProduct(id), [count])
         return (
             <div>
@@ -34,7 +34,7 @@ export const ProductsList: FC<ProductsListPropsType> = memo(
                         <p>{price}</p>
                     </div>
                     <div>
-                        <button onClick={onDeleteProductClick}>убрать</button>
+                        <button onClick={onSubtractProductClick}>убрать</button>
                         <div>{count}</div>
                         <button onClick={onAddProductClick}>добавить</button>
                     </div>
