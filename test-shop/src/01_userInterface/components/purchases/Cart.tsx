@@ -1,7 +1,7 @@
 import React, {memo, ReactElement, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
-    addProductInCart,
+    addProductInCart, deleteCart,
     subtractCart,
     totalPrice
 } from '../../../02_bisnessLogik/cart-reducer';
@@ -33,6 +33,10 @@ export const Cart = memo(
             dispatch(subtractCart({id,currentData}))
             setCount(count - 1)
         }
+        const DeleteProduct = (id: number) => {
+            dispatch(deleteCart({id}))
+            setCount(count - 1)
+        }
         const AddProduct = (id:number) => {
             const currentData = currenObj(id)
             dispatch(addProductInCart({id, currentData}))
@@ -50,6 +54,7 @@ export const Cart = memo(
                                              subtractProduct={subtractProduct}
                                              AddProduct={AddProduct}
                                              count={count}
+                                             DeleteProduct={DeleteProduct}
                         />
 
                     })
