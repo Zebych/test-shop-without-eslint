@@ -1,6 +1,11 @@
-import React, {memo, ReactElement, useEffect} from 'react';
+import React, {memo, ReactElement, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deleteCart, totalPrice} from '../../../02_bisnessLogik/cart-reducer';
+import {
+    addProductInCart,
+    deleteCart,
+    setCart,
+    totalPrice
+} from '../../../02_bisnessLogik/cart-reducer';
 import {AppRootStateType} from "../../../02_bisnessLogik/store";
 import {ArrDataType} from "../../../03.1_server simulator/server";
 import {ProductsList} from "./productsList/ProductsLists";
@@ -9,9 +14,11 @@ export const Cart = memo(
     (): ReactElement => {
         const productInCart = useSelector<AppRootStateType, Array<ArrDataType>>
         (state => state.cart.addedCart)
-        const amountOfPurchases = useSelector<AppRootStateType, number>(state =>
-            state.cart.sumPrice
-        )
+        const initGoodsData = useSelector<AppRootStateType, Array<ArrDataType>>
+        (state => state.goods.data)
+        const amountOfPurchases = useSelector<AppRootStateType, number>
+        (state => state.cart.sumPrice)
+        let [count, setCount] = useState(1)
 
         const dispatch = useDispatch()
 
@@ -19,8 +26,17 @@ export const Cart = memo(
             dispatch(totalPrice())
         }, [productInCart])
 
+        const currenObj=(id:number)=>{
+            return initGoodsData.find(p => p.id === id)//получение текущего объекта из прайса
+        }
         const deleteProduct = (id: number) => {
-            dispatch(deleteCart({id}))
+            const currentData = currenObj(id)
+            dispatch(deleteCart({id,currentData}))
+        }
+        const AddProduct = (id:number) => {
+            const currentData = currenObj(id)
+            dispatch(addProductInCart({id, currentData}))
+            setCount(count + 1)
         }
 
         return (
@@ -29,9 +45,11 @@ export const Cart = memo(
                     {productInCart.map(p => {
                         return <ProductsList name={p.name}
                                              price={p.price}
-                                             photo={p.picture}
+                                             picture={p.picture}
                                              id={p.id}
                                              deleteProduct={deleteProduct}
+                                             AddProduct={AddProduct}
+                                             count={count}
                         />
 
                     })
