@@ -17,7 +17,7 @@ export const Cart = memo(
         (state => state.goods.data)
         const amountOfPurchases = useSelector<AppRootStateType, number>
         (state => state.cart.sumPrice)
-        let [count, setCount] = useState(1)
+
 
         const dispatch = useDispatch()
 
@@ -31,16 +31,14 @@ export const Cart = memo(
         const subtractProduct = (id: number) => {
             const currentData = currenObj(id)
             dispatch(subtractCart({id,currentData}))
-            setCount(count - 1)
+
         }
         const DeleteProduct = (id: number) => {
             dispatch(deleteCart({id}))
-            setCount(count - 1)
         }
         const AddProduct = (id:number) => {
             const currentData = currenObj(id)
             dispatch(addProductInCart({id, currentData}))
-            setCount(count + 1)
         }
 
         return (
@@ -49,11 +47,10 @@ export const Cart = memo(
                     {productInCart.map(p => {
                         return <ProductsList name={p.name}
                                              price={p.price}
-                                             picture={p.picture}
+                                             picture={p.photo}
                                              id={p.id}
                                              subtractProduct={subtractProduct}
                                              AddProduct={AddProduct}
-                                             count={count}
                                              DeleteProduct={DeleteProduct}
                         />
 

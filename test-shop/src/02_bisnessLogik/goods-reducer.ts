@@ -6,7 +6,7 @@ import {ArrDataType, ResDatatype, serverAPI} from "../03.1_server simulator/serv
 const initState:ResDatatype = {
     result: '',
     data: [
-        {name: '', picture: '', id: 0, price: 0},
+        {name: '', photo: '', id: 0, price: 0},
     ],
 }
 const slice = createSlice({

@@ -3,7 +3,8 @@ import SuperButton from "../../../../05_common/Button/SuperButton";
 import {goodsAllTC} from "../../../../02_bisnessLogik/goods-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../02_bisnessLogik/store";
-import {addInCartTC} from "../../../../02_bisnessLogik/cart-reducer";
+import {addInCartTC, addProductInCart} from "../../../../02_bisnessLogik/cart-reducer";
+import {ArrDataType} from "../../../../03.1_server simulator/server";
 
 export type ProductPropsType = {
     id: number
@@ -18,9 +19,14 @@ export const Product: FC<ProductPropsType> = memo(
          name,
          price,
      }): ReactElement => {
-
+        const addedCartArr = useSelector<AppRootStateType, Array<ArrDataType>>
+        (state => state.cart.addedCart)
         const dispatch = useDispatch()
+
         const addInCart = () => {
+            if (addedCartArr.some(a => a.id === id)) {
+               return dispatch(addProductInCart({id, currentData: {name, photo, id, price}}))
+            }
             dispatch(addInCartTC(id))
         }
 

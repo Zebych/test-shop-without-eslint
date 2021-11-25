@@ -1,15 +1,13 @@
-import React, {FC, memo, ReactElement, useCallback} from 'react';
-import {ArrDataType} from "../../../../03.1_server simulator/server";
+import React, {FC, memo, ReactElement, useCallback, useState} from 'react';
 
 type ProductsListPropsType = {
-    count:number
     picture: string
     name: string
     price: number
     id: number
     subtractProduct: (id: number) => void
     DeleteProduct: (id: number) => void
-    AddProduct: (id:number) => void
+    AddProduct: (id: number) => void
 }
 export const ProductsList: FC<ProductsListPropsType> = memo(
     ({
@@ -20,11 +18,22 @@ export const ProductsList: FC<ProductsListPropsType> = memo(
          DeleteProduct,
          id,
          AddProduct,
-         count,
      }): ReactElement => {
-        const onSubtractProductClick = useCallback(() => subtractProduct(id), [count])
-        const onDeleteProductClick = useCallback(() => DeleteProduct(id), [count])
-        const onAddProductClick = useCallback(() => AddProduct(id), [count])
+        let [count, setCount] = useState(1)
+
+        const onSubtractProductClick = useCallback(() => {
+            setCount(count - 1)
+            subtractProduct(id)
+        }, [count])
+        const onDeleteProductClick = useCallback(() => {
+            setCount(count - 1)
+            DeleteProduct(id)
+        }, [count])
+        const onAddProductClick = useCallback(() => {
+            setCount(count + 1)
+            AddProduct(id)
+        }, [count])
+
         return (
             <div>
                 <div>
@@ -37,8 +46,9 @@ export const ProductsList: FC<ProductsListPropsType> = memo(
                         <p>{price}</p>
                     </div>
                     <div>
-                        {count>1 ? <button onClick={onSubtractProductClick} >меньше</button>
-                        : <button onClick={onDeleteProductClick} >убрать</button>}
+                        {count > 1 ?
+                            <button onClick={onSubtractProductClick}>меньше</button>
+                            : <button onClick={onDeleteProductClick}>убрать</button>}
                         <div>{count}</div>
                         <button onClick={onAddProductClick}>больше</button>
                     </div>

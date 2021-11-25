@@ -7,13 +7,13 @@ import photo7 from '../04_assets/img/pic1white.jpg';
 import photo6 from '../04_assets/img/product_57508_0_0_0.jpg';
 
 const arrData: Array<ArrDataType> = [
-    {name: 'mug1', picture: photo1, id: 1, price: 50},
-    {name: 'mug3', picture: photo3, id: 3, price: 90},
-    {name: 'mug2', picture: photo2, id: 2, price: 70},
-    {name: 'mug4', picture: photo4, id: 4, price: 100},
-    {name: 'mug5', picture: photo5, id: 5, price: 110},
-    {name: 'mug6', picture: photo6, id: 6, price: 120},
-    {name: 'mug7', picture: photo7, id: 7, price: 130}
+    {name: 'mug1', photo: photo1, id: 1, price: 50},
+    {name: 'mug3', photo: photo3, id: 3, price: 90},
+    {name: 'mug2', photo: photo2, id: 2, price: 70},
+    {name: 'mug4', photo: photo4, id: 4, price: 100},
+    {name: 'mug5', photo: photo5, id: 5, price: 110},
+    {name: 'mug6', photo: photo6, id: 6, price: 120},
+    {name: 'mug7', photo: photo7, id: 7, price: 130}
 ]
 
 export const serverAPI = {
@@ -42,7 +42,7 @@ export const serverAPI = {
 //Types
 export type ArrDataType = {
     name: string
-    picture: string
+    photo: string
     id: number
     price: number
 }
