@@ -1,10 +1,11 @@
-import React, {FC, memo, ReactElement, useCallback, useState} from 'react';
+import React, {FC, memo, ReactElement, useCallback, useEffect, useState} from 'react';
 
 type ProductsListPropsType = {
     picture: string
     name: string
     price: number
     id: number
+    toPurchase: number
     subtractProduct: (id: number) => void
     DeleteProduct: (id: number) => void
     AddProduct: (id: number) => void
@@ -14,25 +15,21 @@ export const ProductsList: FC<ProductsListPropsType> = memo(
          picture,
          name,
          price,
+         id,
+         toPurchase,
          subtractProduct,
          DeleteProduct,
-         id,
          AddProduct,
      }): ReactElement => {
-        let [count, setCount] = useState(1)
-
         const onSubtractProductClick = useCallback(() => {
-            setCount(count - 1)
             subtractProduct(id)
-        }, [count])
+        }, [])
         const onDeleteProductClick = useCallback(() => {
-            setCount(count - 1)
             DeleteProduct(id)
-        }, [count])
+        }, [])
         const onAddProductClick = useCallback(() => {
-            setCount(count + 1)
             AddProduct(id)
-        }, [count])
+        }, [])
 
         return (
             <div>
@@ -46,10 +43,10 @@ export const ProductsList: FC<ProductsListPropsType> = memo(
                         <p>{price}</p>
                     </div>
                     <div>
-                        {count > 1 ?
+                        {toPurchase > 1 ?
                             <button onClick={onSubtractProductClick}>меньше</button>
                             : <button onClick={onDeleteProductClick}>убрать</button>}
-                        <div>{count}</div>
+                        <div>{toPurchase}</div>
                         <button onClick={onAddProductClick}>больше</button>
                     </div>
                 </div>

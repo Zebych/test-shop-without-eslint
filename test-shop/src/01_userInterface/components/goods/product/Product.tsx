@@ -11,6 +11,7 @@ export type ProductPropsType = {
     name: string
     photo: string
     price: number
+    toPurchase:number
 };
 export const Product: FC<ProductPropsType> = memo(
     ({
@@ -18,6 +19,7 @@ export const Product: FC<ProductPropsType> = memo(
          id,
          name,
          price,
+         toPurchase
      }): ReactElement => {
         const addedCartArr = useSelector<AppRootStateType, Array<ArrDataType>>
         (state => state.cart.addedCart)
@@ -25,7 +27,7 @@ export const Product: FC<ProductPropsType> = memo(
 
         const addInCart = () => {
             if (addedCartArr.some(a => a.id === id)) {
-               return dispatch(addProductInCart({id, currentData: {name, photo, id, price}}))
+                return dispatch(addProductInCart({id, currentData: {name, photo, id, price,toPurchase}}))
             }
             dispatch(addInCartTC(id))
         }

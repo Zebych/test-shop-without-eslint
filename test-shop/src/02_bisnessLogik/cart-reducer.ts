@@ -11,7 +11,8 @@ const slice = createSlice({
     initialState: initCartState,
     reducers: {
         setCart(state, action: PayloadAction<{ addProduct: ArrDataType }>) {
-            state.addedCart = [...state.addedCart, action.payload.addProduct]
+            const apAddProduct = action.payload.addProduct
+            state.addedCart = [...state.addedCart, apAddProduct]
         },
         deleteCart(state, action: PayloadAction<{ id: number }>) {
             state.addedCart = state.addedCart.filter((f) => f.id !== action.payload.id)
@@ -26,9 +27,10 @@ const slice = createSlice({
         }>) {
             state.addedCart.map((a) => {
                 const apCurrentData = action.payload.currentData
-                if (a.id === action.payload.id && apCurrentData) {
+                if (a.id === action.payload.id && apCurrentData && a.toPurchase) {
                     if (a.price !== apCurrentData.price) {
                         a.price = a.price - apCurrentData.price
+                        a.toPurchase = a.toPurchase - 1
                     }
                 }
             })
@@ -42,6 +44,7 @@ const slice = createSlice({
                 const currenData = actionP.currentData
                 if (p.id === actionP.id && currenData) {
                     p.price += currenData.price
+                    p.toPurchase = p.toPurchase + 1
                 }
             })
         },

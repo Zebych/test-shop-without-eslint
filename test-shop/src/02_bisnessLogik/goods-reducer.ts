@@ -3,17 +3,17 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ArrDataType, ResDatatype, serverAPI} from "../03.1_server simulator/server";
 
 
-const initState:ResDatatype = {
+const initGoodsState: ResDatatype = {
     result: '',
     data: [
-        {name: '', photo: '', id: 0, price: 0},
+        {name: '', photo: '', id: 0, price: 0, toPurchase: 0},
     ],
 }
 const slice = createSlice({
     name: 'goods',
-    initialState: initState,
+    initialState: initGoodsState,
     reducers: {
-        goodsAll(state, action: PayloadAction<{data:Array<ArrDataType>}>) {
+        goodsAll(state, action: PayloadAction<{ data: Array<ArrDataType> }>) {
             state.data = action.payload.data
         }
     }
@@ -24,8 +24,8 @@ export const goodsReducer = slice.reducer
 const {goodsAll} = slice.actions
 
 //Thunk
-export const goodsAllTC = (num:number) => (dispatch: Dispatch) => {
-serverAPI.getGoodsAll(num).then((res:any)=>{
-        dispatch(goodsAll({data:res.data}))
-})
+export const goodsAllTC = (num: number) => (dispatch: Dispatch) => {
+    serverAPI.getGoodsAll(num).then((res: any) => {
+        dispatch(goodsAll({data: res.data}))
+    })
 }

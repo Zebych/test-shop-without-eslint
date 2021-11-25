@@ -7,13 +7,13 @@ import photo7 from '../04_assets/img/pic1white.jpg';
 import photo6 from '../04_assets/img/product_57508_0_0_0.jpg';
 
 const arrData: Array<ArrDataType> = [
-    {name: 'mug1', photo: photo1, id: 1, price: 50},
-    {name: 'mug3', photo: photo3, id: 3, price: 90},
-    {name: 'mug2', photo: photo2, id: 2, price: 70},
-    {name: 'mug4', photo: photo4, id: 4, price: 100},
-    {name: 'mug5', photo: photo5, id: 5, price: 110},
-    {name: 'mug6', photo: photo6, id: 6, price: 120},
-    {name: 'mug7', photo: photo7, id: 7, price: 130}
+    {name: 'mug1', photo: photo1, id: 1, price: 50, toPurchase: 1, inStock: 10},
+    {name: 'mug3', photo: photo3, id: 3, price: 90, toPurchase: 1, inStock: 10},
+    {name: 'mug2', photo: photo2, id: 2, price: 70, toPurchase: 1, inStock: 10},
+    {name: 'mug4', photo: photo4, id: 4, price: 100, toPurchase: 1, inStock: 10},
+    {name: 'mug5', photo: photo5, id: 5, price: 110, toPurchase: 1, inStock: 10},
+    {name: 'mug6', photo: photo6, id: 6, price: 120, toPurchase: 1, inStock: 10},
+    {name: 'mug7', photo: photo7, id: 7, price: 130, toPurchase: 1, inStock: 10}
 ]
 
 export const serverAPI = {
@@ -26,14 +26,14 @@ export const serverAPI = {
                         data: arrData,
                     })
                 }
-                res({result: 'error',data:[]})
+                res({result: 'error', data: []})
             }, 1000)
         })
     },
-    getCart(id:number){
-        return new Promise((res,rej)=>{
-            setTimeout(()=>{
-                res(arrData.find((f)=>f.id===id))
+    getCart(id: number) {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                res(arrData.find((f) => f.id === id))
             })
         })
     }
@@ -45,8 +45,10 @@ export type ArrDataType = {
     photo: string
     id: number
     price: number
+    toPurchase:number
+    inStock?:number
 }
-export type ResDatatype={
-    result:string
-    data:Array<ArrDataType>
+export type ResDatatype = {
+    result: string
+    data: Array<ArrDataType>
 }
