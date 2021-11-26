@@ -1,8 +1,12 @@
-import React, {FC, memo, ReactElement, useEffect} from 'react';
+import React, {FC, memo, ReactElement} from 'react';
 import SuperButton from "../../../../05_common/Button/SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../02_bisnessLogik/store";
-import {addInCartTC, addProductInCart} from "../../../../02_bisnessLogik/cart-reducer";
+import {
+    addInCartTC,
+    addProductInCart,
+    totalPrice
+} from "../../../../02_bisnessLogik/cart-reducer";
 import {ProductObjType} from "../../../../03.1_server simulator/server";
 
 export type ProductPropsType = {
@@ -24,7 +28,10 @@ export const Product: FC<ProductPropsType> = memo(
 
         const addInCart = () => {
             if (addedCartArr.some(a => a.id === id)) {
-                return dispatch(addProductInCart({id}))
+                return (
+                    dispatch(addProductInCart({id})),
+                        dispatch(totalPrice())
+                )
             }
             dispatch(addInCartTC(id))
         }

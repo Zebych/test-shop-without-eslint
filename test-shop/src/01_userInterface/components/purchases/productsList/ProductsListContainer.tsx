@@ -9,7 +9,6 @@ import {
     totalPrice
 } from "../../../../02_bisnessLogik/cart-reducer";
 import {ProductsList} from "./ProductsLists";
-import {saveState} from "../../../../06_utils/localStorage";
 
 
 export const ProductsListContainer = memo(

@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
 import {ProductObjType, serverAPI} from "../03.1_server simulator/server";
-import {saveState} from "../06_utils/localStorage";
+import {saveAddedCartToLocalStorage} from "../06_utils/localStorage";
 
 const initCartState: InitCartType = {
     sumPrice: 0,
@@ -14,11 +14,11 @@ const slice = createSlice({
         setCart(state, action: PayloadAction<{ addProduct: ProductObjType }>) {
             const apAddProduct = action.payload.addProduct
             state.addedCart = [...state.addedCart, apAddProduct]
-            saveState(state.addedCart)
+            saveAddedCartToLocalStorage(state.addedCart)
         },
         deleteCart(state, action: PayloadAction<{ id: number }>) {
             state.addedCart = state.addedCart.filter((f) => f.id !== action.payload.id)
-            saveState(state.addedCart)
+            saveAddedCartToLocalStorage(state.addedCart)
         },
         totalPrice(state) {
             state.sumPrice = state.addedCart.reduce((acc, el) => {
@@ -34,7 +34,7 @@ const slice = createSlice({
                     a.toPurchase -= 1
                 }
             })
-            saveState(state.addedCart)
+            saveAddedCartToLocalStorage(state.addedCart)
         },
         addProductInCart(state, action: PayloadAction<{
             id: number,
@@ -46,7 +46,7 @@ const slice = createSlice({
                     p.toPurchase += 1
                 }
             })
-            saveState(state.addedCart)
+            saveAddedCartToLocalStorage(state.addedCart)
         },
     }
 })
@@ -64,6 +64,7 @@ export const {
 export const addInCartTC = (id: number) => (dispatch: Dispatch) => {
     serverAPI.getCart(id).then((res: any) => {
         dispatch(setCart({addProduct: res}))
+        dispatch(totalPrice())
     })
 }
 
