@@ -1,6 +1,5 @@
 import React, {FC, memo, ReactElement, useEffect} from 'react';
 import SuperButton from "../../../../05_common/Button/SuperButton";
-import {goodsAllTC} from "../../../../02_bisnessLogik/goods-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../02_bisnessLogik/store";
 import {addInCartTC, addProductInCart} from "../../../../02_bisnessLogik/cart-reducer";
@@ -11,7 +10,6 @@ export type ProductPropsType = {
     name: string
     photo: string
     price: number
-    toPurchase:number
 };
 export const Product: FC<ProductPropsType> = memo(
     ({
@@ -19,7 +17,6 @@ export const Product: FC<ProductPropsType> = memo(
          id,
          name,
          price,
-         toPurchase
      }): ReactElement => {
         const addedCartArr = useSelector<AppRootStateType, Array<ProductObjType>>
         (state => state.cart.addedCart)
@@ -27,7 +24,7 @@ export const Product: FC<ProductPropsType> = memo(
 
         const addInCart = () => {
             if (addedCartArr.some(a => a.id === id)) {
-                return dispatch(addProductInCart({id, currentData: {name, photo, id, price,toPurchase}}))
+                return dispatch(addProductInCart({id}))
             }
             dispatch(addInCartTC(id))
         }

@@ -26,29 +26,24 @@ const slice = createSlice({
             }, 0)
         },
         subtractCart(state, action: PayloadAction<{
-            id: number, currentData: ProductObjType | undefined
+            id: number
         }>) {
             state.addedCart.map((a) => {
-                const apCurrentData = action.payload.currentData
-                if (a.id === action.payload.id && apCurrentData && a.toPurchase) {
-                    if (a.price !== apCurrentData.price) {
-                        a.price = a.price - apCurrentData.price
-                        a.toPurchase = a.toPurchase - 1
-                    }
+                if (a.id === action.payload.id) {
+                    a.price -= a.price / a.toPurchase
+                    a.toPurchase -= 1
                 }
             })
             saveState(state.addedCart)
         },
         addProductInCart(state, action: PayloadAction<{
             id: number,
-            currentData: ProductObjType | undefined
         }>) {
             state.addedCart.map((p) => {
                 const actionP = action.payload
-                const currenData = actionP.currentData
-                if (p.id === actionP.id && currenData) {
-                    p.price += currenData.price
-                    p.toPurchase = p.toPurchase + 1
+                if (p.id === actionP.id) {
+                    p.price += p.price / p.toPurchase
+                    p.toPurchase += 1
                 }
             })
             saveState(state.addedCart)

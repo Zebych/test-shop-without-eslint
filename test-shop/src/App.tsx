@@ -13,7 +13,6 @@ const App = memo(() => {
     const dispatch = useDispatch()
     //данные для отрисовки стартовой страницы
     useEffect(() => {
-        debugger
         dispatch(goodsAllTC(1))
     }, [])
     useEffect(()=>{

@@ -19,7 +19,6 @@ export const Goods = memo(
                                         name={g.name}
                                         id={g.id}
                                         price={g.price}
-                                        toPurchase={g.toPurchase}
                         />
                     })}
                 </div>

@@ -16,33 +16,20 @@ export const ProductsListContainer = memo(
     (): ReactElement => {
         const productInCart = useSelector<AppRootStateType, Array<ProductObjType>>
         (state => state.cart.addedCart)
-        const initGoodsData = useSelector<AppRootStateType, Array<ProductObjType>>
-        (state => state.goods.data)
-
         const dispatch = useDispatch()
 
         useEffect(() => {
             dispatch(totalPrice())
         }, [productInCart])
 
-        const currentObj = (id: number) => {
-            debugger
-            return initGoodsData.find(p => p.id === id)//получение текущего объекта из прайса
-        }
-
         const subtractProduct = (id: number) => {
-            // const currentData = currentObj(id)
-            const currentData = initGoodsData.find(p => p.id === id)
-            dispatch(subtractCart({id, currentData}))
-
+            dispatch(subtractCart({id}))
         }
         const DeleteProduct = (id: number) => {
             dispatch(deleteCart({id}))
         }
         const AddProduct = (id: number) => {
-            // const currentData = currentObj(id)
-            const currentData = initGoodsData.find(p => p.id === id)
-            dispatch(addProductInCart({id, currentData}))
+            dispatch(addProductInCart({id}))
         }
 
         return (
