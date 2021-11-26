@@ -4,7 +4,7 @@ import {goodsAllTC} from "../../../../02_bisnessLogik/goods-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../02_bisnessLogik/store";
 import {addInCartTC, addProductInCart} from "../../../../02_bisnessLogik/cart-reducer";
-import {ArrDataType} from "../../../../03.1_server simulator/server";
+import {ProductObjType} from "../../../../03.1_server simulator/server";
 
 export type ProductPropsType = {
     id: number
@@ -21,7 +21,7 @@ export const Product: FC<ProductPropsType> = memo(
          price,
          toPurchase
      }): ReactElement => {
-        const addedCartArr = useSelector<AppRootStateType, Array<ArrDataType>>
+        const addedCartArr = useSelector<AppRootStateType, Array<ProductObjType>>
         (state => state.cart.addedCart)
         const dispatch = useDispatch()
 

@@ -1,4 +1,4 @@
-import React, {FC, memo, ReactElement, useCallback, useEffect, useState} from 'react';
+import React, {FC, memo, ReactElement, useCallback} from 'react';
 
 type ProductsListPropsType = {
     picture: string

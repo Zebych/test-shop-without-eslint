@@ -6,7 +6,7 @@ import photo5 from '../04_assets/img/people_2_mug_chameleon_front_whitered_500.j
 import photo7 from '../04_assets/img/pic1white.jpg';
 import photo6 from '../04_assets/img/product_57508_0_0_0.jpg';
 
-const arrData: Array<ArrDataType> = [
+const arrData: Array<ProductObjType> = [
     {name: 'mug1', photo: photo1, id: 1, price: 50, toPurchase: 1, inStock: 10},
     {name: 'mug3', photo: photo3, id: 3, price: 90, toPurchase: 1, inStock: 10},
     {name: 'mug2', photo: photo2, id: 2, price: 70, toPurchase: 1, inStock: 10},
@@ -40,7 +40,7 @@ export const serverAPI = {
 }
 
 //Types
-export type ArrDataType = {
+export type ProductObjType = {
     name: string
     photo: string
     id: number
@@ -50,5 +50,5 @@ export type ArrDataType = {
 }
 export type ResDatatype = {
     result: string
-    data: Array<ArrDataType>
+    data: Array<ProductObjType>
 }

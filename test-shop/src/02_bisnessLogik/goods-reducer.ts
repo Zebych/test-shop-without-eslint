@@ -1,6 +1,6 @@
 import {Dispatch} from "redux"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ArrDataType, ResDatatype, serverAPI} from "../03.1_server simulator/server";
+import {ProductObjType, ResDatatype, serverAPI} from "../03.1_server simulator/server";
 
 
 const initGoodsState: ResDatatype = {
@@ -13,7 +13,7 @@ const slice = createSlice({
     name: 'goods',
     initialState: initGoodsState,
     reducers: {
-        goodsAll(state, action: PayloadAction<{ data: Array<ArrDataType> }>) {
+        goodsAll(state, action: PayloadAction<{ data: Array<ProductObjType> }>) {
             state.data = action.payload.data
         }
     }

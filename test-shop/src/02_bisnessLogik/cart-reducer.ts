@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
-import {ArrDataType, serverAPI} from "../03.1_server simulator/server";
+import {ProductObjType, serverAPI} from "../03.1_server simulator/server";
+import {saveState} from "../06_utils/localStorage";
 
 const initCartState: InitCartType = {
     sumPrice: 0,
@@ -10,12 +11,14 @@ const slice = createSlice({
     name: 'cart',
     initialState: initCartState,
     reducers: {
-        setCart(state, action: PayloadAction<{ addProduct: ArrDataType }>) {
+        setCart(state, action: PayloadAction<{ addProduct: ProductObjType }>) {
             const apAddProduct = action.payload.addProduct
             state.addedCart = [...state.addedCart, apAddProduct]
+            saveState(state.addedCart)
         },
         deleteCart(state, action: PayloadAction<{ id: number }>) {
             state.addedCart = state.addedCart.filter((f) => f.id !== action.payload.id)
+            saveState(state.addedCart)
         },
         totalPrice(state) {
             state.sumPrice = state.addedCart.reduce((acc, el) => {
@@ -23,7 +26,7 @@ const slice = createSlice({
             }, 0)
         },
         subtractCart(state, action: PayloadAction<{
-            id: number, currentData: ArrDataType | undefined
+            id: number, currentData: ProductObjType | undefined
         }>) {
             state.addedCart.map((a) => {
                 const apCurrentData = action.payload.currentData
@@ -34,10 +37,11 @@ const slice = createSlice({
                     }
                 }
             })
+            saveState(state.addedCart)
         },
         addProductInCart(state, action: PayloadAction<{
             id: number,
-            currentData: ArrDataType | undefined
+            currentData: ProductObjType | undefined
         }>) {
             state.addedCart.map((p) => {
                 const actionP = action.payload
@@ -47,6 +51,7 @@ const slice = createSlice({
                     p.toPurchase = p.toPurchase + 1
                 }
             })
+            saveState(state.addedCart)
         },
     }
 })
@@ -68,7 +73,7 @@ export const addInCartTC = (id: number) => (dispatch: Dispatch) => {
 }
 
 //Types
-type InitCartType = {
+export type InitCartType = {
     sumPrice: number,
-    addedCart: Array<ArrDataType>
+    addedCart: Array<ProductObjType>
 }

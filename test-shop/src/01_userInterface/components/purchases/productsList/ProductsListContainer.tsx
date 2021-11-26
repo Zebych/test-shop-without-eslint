@@ -1,7 +1,7 @@
 import React, {memo, ReactElement, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../02_bisnessLogik/store";
-import {ArrDataType} from '../../../../03.1_server simulator/server';
+import {ProductObjType} from '../../../../03.1_server simulator/server';
 import {
     addProductInCart,
     deleteCart,
@@ -9,13 +9,14 @@ import {
     totalPrice
 } from "../../../../02_bisnessLogik/cart-reducer";
 import {ProductsList} from "./ProductsLists";
+import {saveState} from "../../../../06_utils/localStorage";
 
 
 export const ProductsListContainer = memo(
     (): ReactElement => {
-        const productInCart = useSelector<AppRootStateType, Array<ArrDataType>>
+        const productInCart = useSelector<AppRootStateType, Array<ProductObjType>>
         (state => state.cart.addedCart)
-        const initGoodsData = useSelector<AppRootStateType, Array<ArrDataType>>
+        const initGoodsData = useSelector<AppRootStateType, Array<ProductObjType>>
         (state => state.goods.data)
 
         const dispatch = useDispatch()
@@ -24,12 +25,14 @@ export const ProductsListContainer = memo(
             dispatch(totalPrice())
         }, [productInCart])
 
-        const currenObj = (id: number) => {
+        const currentObj = (id: number) => {
+            debugger
             return initGoodsData.find(p => p.id === id)//получение текущего объекта из прайса
         }
 
         const subtractProduct = (id: number) => {
-            const currentData = currenObj(id)
+            // const currentData = currentObj(id)
+            const currentData = initGoodsData.find(p => p.id === id)
             dispatch(subtractCart({id, currentData}))
 
         }
@@ -37,7 +40,8 @@ export const ProductsListContainer = memo(
             dispatch(deleteCart({id}))
         }
         const AddProduct = (id: number) => {
-            const currentData = currenObj(id)
+            // const currentData = currentObj(id)
+            const currentData = initGoodsData.find(p => p.id === id)
             dispatch(addProductInCart({id, currentData}))
         }
 
