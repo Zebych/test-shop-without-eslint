@@ -12,7 +12,7 @@ export const Cart = memo(
         return (
             <div>
                 <ProductsListContainer/>
-                <div>{amountOfPurchases}</div>
+                <div>{amountOfPurchases>0 && amountOfPurchases}</div>
             </div>
         )
     },

@@ -9,6 +9,7 @@ import {
     totalPrice
 } from "../../../../02_bisnessLogik/cart-reducer";
 import {ProductsList} from "./ProductsLists";
+import {PaymentForm} from "../paymentForm/PaymentForm";
 
 
 export const ProductsListContainer = memo(
@@ -28,25 +29,31 @@ export const ProductsListContainer = memo(
             dispatch(deleteCart({id}))
         }
         const AddProduct = (id: number) => {
+            debugger
             dispatch(addProductInCart({id}))
         }
 
         return (
             <div>
-                <p>список покупок</p>
-                {productInCart.map(p => {
-                    return <ProductsList name={p.name}
-                                         price={p.price}
-                                         picture={p.photo}
-                                         id={p.id}
-                                         toPurchase={p.toPurchase}
-                                         subtractProduct={subtractProduct}
-                                         AddProduct={AddProduct}
-                                         DeleteProduct={DeleteProduct}
-                    />
+                <div>
+                    <p>список покупок</p>
+                    {productInCart.map(p => {
+                        return <ProductsList name={p.name}
+                                             price={p.price}
+                                             picture={p.photo}
+                                             id={p.id}
+                                             toPurchase={p.toPurchase}
+                                             subtractProduct={subtractProduct}
+                                             AddProduct={AddProduct}
+                                             DeleteProduct={DeleteProduct}
+                        />
+                    })
+                    }
+                </div>
+              <div>
+                  <PaymentForm/>
+              </div>
 
-                })
-                }
             </div>
         )
     },

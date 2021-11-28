@@ -1,4 +1,5 @@
 import React, {FC, memo, ReactElement, useCallback} from 'react';
+import {Button} from "@material-ui/core";
 
 type ProductsListPropsType = {
     picture: string
@@ -44,10 +45,10 @@ export const ProductsList: FC<ProductsListPropsType> = memo(
                     </div>
                     <div>
                         {toPurchase > 1 ?
-                            <button onClick={onSubtractProductClick}>меньше</button>
-                            : <button onClick={onDeleteProductClick}>убрать</button>}
+                            <Button variant={"contained"} color={"primary"} onClick={onSubtractProductClick}>-</Button>
+                            : <Button variant={"contained"} color={"primary"} onClick={onDeleteProductClick}>-</Button>}
                         <div>{toPurchase}</div>
-                        <button onClick={onAddProductClick}>больше</button>
+                        <Button variant={"contained"} color={"primary"} onClick={onAddProductClick}>+</Button>
                     </div>
                 </div>
             </div>

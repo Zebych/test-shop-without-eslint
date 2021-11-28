@@ -39,6 +39,7 @@ const slice = createSlice({
         addProductInCart(state, action: PayloadAction<{
             id: number,
         }>) {
+            debugger
             state.addedCart.map((p) => {
                 const actionP = action.payload
                 if (p.id === actionP.id) {

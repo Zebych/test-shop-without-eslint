@@ -1,6 +1,7 @@
 import {Dispatch} from "redux"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ProductObjType, ResDatatype, serverAPI} from "../03.1_server simulator/server";
+import { totalPrice } from "./cart-reducer";
 
 
 const initGoodsState: ResDatatype = {
@@ -27,5 +28,6 @@ const {goodsAll} = slice.actions
 export const goodsAllTC = (num: number) => (dispatch: Dispatch) => {
     serverAPI.getGoodsAll(num).then((res: any) => {
         dispatch(goodsAll({data: res.data}))
+        dispatch(totalPrice())
     })
 }

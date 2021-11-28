@@ -8,6 +8,7 @@ import {
     totalPrice
 } from "../../../../02_bisnessLogik/cart-reducer";
 import {ProductObjType} from "../../../../03.1_server simulator/server";
+import {Button} from "@material-ui/core";
 
 export type ProductPropsType = {
     id: number
@@ -26,6 +27,7 @@ export const Product: FC<ProductPropsType> = memo(
         (state => state.cart.addedCart)
         const dispatch = useDispatch()
 
+        //Проверка на наличие товара в массиве запланированных покупок
         const addInCart = () => {
             if (addedCartArr.some(a => a.id === id)) {
                 return (
@@ -41,7 +43,7 @@ export const Product: FC<ProductPropsType> = memo(
                 <img src={photo} alt="photo" style={{width: '300px', height: '300px'}}/>
                 <p>{name}</p>
                 <h3>{price}</h3>
-                <SuperButton onClick={addInCart}>Купить</SuperButton>
+                <Button variant={"contained"} color={"primary"} onClick={addInCart}>Купить</Button>
             </div>
         )
     },

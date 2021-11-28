@@ -1,5 +1,16 @@
 import {ProductObjType} from "../03.1_server simulator/server";
 
+//запрос данных состояния localStorage
+export const getLocalData=()=>{
+    try{
+        const serializedState = localStorage.getItem('addedProduct')
+        if (serializedState) {
+          return JSON.parse(serializedState).filter((l: any) => l !== null)
+        }
+    }catch {
+        // ignore write errors
+    }
+}
 // сохранение состояния в localStorage
 export const saveAddedCartToLocalStorage = (state:Array<ProductObjType>) => {
     try {
