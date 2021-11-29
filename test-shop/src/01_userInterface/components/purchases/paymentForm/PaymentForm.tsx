@@ -1,13 +1,19 @@
 import React from 'react';
-import {Button, FormControl, FormGroup, TextField} from "@material-ui/core";
+import {
+    Button, Checkbox,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    TextField
+} from "@material-ui/core";
 import {useDispatch} from "react-redux";
 import {useFormik} from 'formik';
 
 type FormikErrorType = {
-    firstLastName?: string//email
+    firstLastName?: string
     cardNumber?: string
     expirationDate?: string
-    password?: string//password
+    password?: string
     rememberCard?: boolean
 }
 
@@ -23,19 +29,22 @@ export const PaymentForm = () => {
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
-            if (!values.firstLastName) {
-                errors.firstLastName = 'Required';
-            } else if (!/^[A-Z]+[A-Z]$/i.test(values.firstLastName)) {
-                errors.firstLastName = 'Invalid firstLastName';
-            }
+
             if (!values.cardNumber) {
                 errors.cardNumber = 'Required';
-            } else if (!/^(?:[0-9]{16})$/i.test(values.cardNumber)) {
+            } else if (values.cardNumber.length !== 19
+                || !/^[0-9]+\ [0-9]+\ [0-9]+\ [0-9]{4}$/i.test(values.cardNumber)) {
                 errors.cardNumber = 'Invalid card number';
-            }//{4}+dsS[0-9]{4}+dsS[0-9]{4}+dsS[0-9]{4}
+            }
+            if (!values.firstLastName) {
+                errors.firstLastName = 'Required';
+            } else if (!/^[A-Z]+\ [A-Z]{2,20}$/i.test(values.firstLastName)) {
+                errors.firstLastName = 'Invalid firstLastName';
+            }
             if (!values.expirationDate) {
                 errors.expirationDate = 'Required';
-            } else if (!/^[0-9]{4}$/i.test(values.expirationDate)) {
+            } else if (values.expirationDate.length !== 5
+                || !/^[0-9]+\/[0-9]{2}$/i.test(values.expirationDate)) {
                 errors.expirationDate = 'Invalid expirationDate';
             }
             if (!values.password) {
@@ -47,65 +56,67 @@ export const PaymentForm = () => {
         },
         onSubmit: values => {
             //JSON.stringify(values)
-            debugger
-            alert(JSON.stringify(values,null,2))
+            alert(JSON.stringify(values, null, 2))
             // dispatch(loginTC(values))
             formik.resetForm()
         },
     })
     return (
         <FormControl>
-        <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
 
                 <FormGroup>
                     <TextField
                         variant={"outlined"}
-                        // type={"tel"}
-                        // inputProps={{  pattern: "/[0-9]{4}+\d\s\S[0-9]{4}+\d\s\S[0-9]{4}+\d\s\S[0-9]{4}/"}}
+                        type={"tel"}
                         label={"0000 0000 0000 0000"}
                         margin={"normal"}
-                        name={"cardNumber"}
-                        onChange={formik.handleChange}
-                        value={formik.values.cardNumber}
+                        {...formik.getFieldProps('cardNumber')}
 
                     />
-                    {formik.errors.cardNumber && <div>{formik.errors.cardNumber}</div>}
-                  {/*  {...formik.getFieldProps('cardNumber')}*/}
+                    {formik.touched.cardNumber && formik.errors.cardNumber &&
+                    <div style={{color: 'red'}}>{formik.errors.cardNumber}</div>}
+
                     <TextField
                         variant={"outlined"}
-                        label={"name"}
+                        label={"IVAN IVANOV"}
                         margin={"normal"}
-                        name={"firstLastName"}
-                        onChange={formik.handleChange}
-                        value={formik.values.firstLastName}
+                        {...formik.getFieldProps('firstLastName')}
+                    />
+                    {formik.touched.firstLastName && formik.errors.firstLastName &&
+                    <div style={{color: 'red'}}>{formik.errors.firstLastName}</div>}
 
-                    />{/*{...formik.getFieldProps('firstLastName')}*/}
+
                     <TextField
-                        // type={"month"}
                         variant={"outlined"}
                         label={"00/00"}
                         margin={"normal"}
-                        name={"expirationDate"}
-                        onChange={formik.handleChange}
-                        value={formik.values.expirationDate}
+                        {...formik.getFieldProps('expirationDate')}
+                    />
+                    {formik.touched.expirationDate && formik.errors.expirationDate &&
+                    <div style={{color: 'red'}}>{formik.errors.expirationDate}</div>}
 
-                    /> {/*{...formik.getFieldProps('expirationDate')}*/}
                     <TextField
                         variant={"outlined"}
                         label={"000"}
                         margin={"normal"}
-                        name={"password"}
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
+                        {...formik.getFieldProps('password')}
+                    />
+                    {formik.touched.password && formik.errors.password &&
+                    <div style={{color: 'red'}}>{formik.errors.password}</div>}
 
-                    />{/*{...formik.getFieldProps('password')}*/}
+                    <FormControlLabel
+                        label={'remember card'}
+                        control={<Checkbox {...formik.getFieldProps('rememberCard')}/>}
+                        checked={formik.values.rememberCard}
+                    />
+
                     <Button type={"submit"} variant={"contained"} color={"primary"}>
                         оплатить
                     </Button>
                 </FormGroup>
-
-        </form>
-</FormControl>
+            </form>
+        </FormControl>
     );
 };
 

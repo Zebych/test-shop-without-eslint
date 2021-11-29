@@ -9,7 +9,7 @@ import {goodsAllTC} from "./02_bisnessLogik/goods-reducer";
 import {AppBar, Toolbar} from "@material-ui/core";
 import {getLocalData} from "./06_utils/localStorage";
 
-
+const commandForGettingData = 1
 const App = memo(() => {
     const dispatch = useDispatch()
 
@@ -17,7 +17,7 @@ const App = memo(() => {
     //данные для отрисовки стартовой страницы
     useEffect(() => {
         getLocalData().map((a: ProductObjType) => dispatch(setCart({addProduct: a})))
-        dispatch(goodsAllTC(1))
+        dispatch(goodsAllTC(commandForGettingData))
     }, [])
 
     return (
