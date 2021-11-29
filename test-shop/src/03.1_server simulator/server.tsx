@@ -5,6 +5,7 @@ import photo4 from '../04_assets/img/kruzhka_sgushchenka_img.webp';
 import photo5 from '../04_assets/img/people_2_mug_chameleon_front_whitered_500.jpg';
 import photo7 from '../04_assets/img/pic1white.jpg';
 import photo6 from '../04_assets/img/product_57508_0_0_0.jpg';
+import {FormikErrorType} from "../01_userInterface/components/purchases/paymentData/paymentForm/PaymentForm";
 
 const arrData: Array<ProductObjType> = [
     {name: 'mug1', photo: photo1, id: 1, price: 50, toPurchase: 1, inStock: 10},
@@ -15,6 +16,7 @@ const arrData: Array<ProductObjType> = [
     {name: 'mug6', photo: photo6, id: 6, price: 120, toPurchase: 1, inStock: 10},
     {name: 'mug7', photo: photo7, id: 7, price: 130, toPurchase: 1, inStock: 10}
 ]
+const purchasesData=[]
 
 export const serverAPI = {
     getGoodsAll(response: number) {
@@ -34,7 +36,17 @@ export const serverAPI = {
         return new Promise((res, rej) => {
             setTimeout(() => {
                 res(arrData.find((f) => f.id === id))
-            })
+            },0)
+        })
+    },
+    postPurchases(addedCart:Array<ProductObjType>,values:FormikErrorType){
+        purchasesData.push(addedCart,values)
+        debugger
+        return new Promise((res,rej)=>{
+            setTimeout(() => {
+                res({result: 'true'})
+            },1000)
+
         })
     }
 }

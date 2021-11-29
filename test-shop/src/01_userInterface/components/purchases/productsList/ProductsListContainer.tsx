@@ -9,13 +9,17 @@ import {
     totalPrice
 } from "../../../../02_bisnessLogik/cart-reducer";
 import {ProductsList} from "./ProductsLists";
-import {PaymentForm} from "../paymentForm/PaymentForm";
+import {PaymentForm} from "../paymentData/paymentForm/PaymentForm";
+import {AddressForm} from "../paymentData/addressForm/AddressForm";
 
 
 export const ProductsListContainer = memo(
     (): ReactElement => {
         const productInCart = useSelector<AppRootStateType, Array<ProductObjType>>
         (state => state.cart.addedCart)
+        const amountOfPurchases = useSelector<AppRootStateType, number>
+        (state => state.cart.sumPrice)
+
         const dispatch = useDispatch()
 
         useEffect(() => {
@@ -49,10 +53,10 @@ export const ProductsListContainer = memo(
                         />
                     })
                     }
+                    <div>
+                        {amountOfPurchases>0 && <span>amount to pay: {amountOfPurchases}</span>}
+                    </div>
                 </div>
-              <div>
-                  <PaymentForm/>
-              </div>
 
             </div>
         )

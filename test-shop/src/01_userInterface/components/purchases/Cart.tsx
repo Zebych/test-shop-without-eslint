@@ -1,18 +1,27 @@
 import React, {memo, ReactElement, useEffect} from 'react';
+import {ProductsListContainer} from "./productsList/ProductsListContainer";
+import {PaymentForm} from "./paymentData/paymentForm/PaymentForm";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../02_bisnessLogik/store";
-import {ProductsListContainer} from "./productsList/ProductsListContainer";
-import {setCart} from "../../../02_bisnessLogik/cart-reducer";
+import {setBuy} from "../../../02_bisnessLogik/cart-reducer";
 
 export const Cart = memo(
     (): ReactElement => {
-        const amountOfPurchases = useSelector<AppRootStateType, number>
-        (state => state.cart.sumPrice)
-
+        const conditionBuy = useSelector<AppRootStateType, boolean>(state => state.cart.conditionBuy)
+        const dispatch=useDispatch()
+        useEffect(()=>{
+            setTimeout(()=>{
+                dispatch(setBuy({result:false}))
+            },3000)
+        },[conditionBuy])
         return (
-            <div>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-around'
+            }}>
                 <ProductsListContainer/>
-                <div>{amountOfPurchases>0 && amountOfPurchases}</div>
+                {conditionBuy && alert('покупка совершена')}
+                <PaymentForm/>
             </div>
         )
     },

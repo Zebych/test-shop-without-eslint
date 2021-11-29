@@ -2,10 +2,12 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
 import {ProductObjType, serverAPI} from "../03.1_server simulator/server";
 import {saveAddedCartToLocalStorage} from "../06_utils/localStorage";
+import {FormikErrorType} from "../01_userInterface/components/purchases/paymentData/paymentForm/PaymentForm";
 
 const initCartState: InitCartType = {
     sumPrice: 0,
     addedCart: [],
+    conditionBuy: false,
 }
 const slice = createSlice({
     name: 'cart',
@@ -39,7 +41,6 @@ const slice = createSlice({
         addProductInCart(state, action: PayloadAction<{
             id: number,
         }>) {
-            debugger
             state.addedCart.map((p) => {
                 const actionP = action.payload
                 if (p.id === actionP.id) {
@@ -49,6 +50,10 @@ const slice = createSlice({
             })
             saveAddedCartToLocalStorage(state.addedCart)
         },
+        setBuy(state, action: PayloadAction<{ result: boolean }>) {
+            debugger
+            state.conditionBuy = action.payload.result
+        }
     }
 })
 export const cartReducer = slice.reducer
@@ -59,18 +64,28 @@ export const {
     totalPrice,
     subtractCart,
     addProductInCart,
-    deleteCart
+    deleteCart,
+    setBuy
 } = slice.actions
 //Thunk
 export const addInCartTC = (id: number) => (dispatch: Dispatch) => {
     serverAPI.getCart(id).then((res: any) => {
+
         dispatch(setCart({addProduct: res}))
         dispatch(totalPrice())
+    })
+}
+export const buyTC = (addedCart: Array<ProductObjType>, values: FormikErrorType) => (dispatch: Dispatch) => {
+    debugger
+    serverAPI.postPurchases(addedCart, values).then((res: any) => {
+        debugger
+        dispatch(setBuy(res))
     })
 }
 
 //Types
 export type InitCartType = {
-    sumPrice: number,
+    sumPrice: number
     addedCart: Array<ProductObjType>
+    conditionBuy: boolean
 }

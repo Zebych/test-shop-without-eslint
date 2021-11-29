@@ -6,10 +6,13 @@ import {
     FormGroup,
     TextField
 } from "@material-ui/core";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from 'formik';
+import {AppRootStateType} from "../../../../../02_bisnessLogik/store";
+import {ProductObjType} from "../../../../../03.1_server simulator/server";
+import { buyTC } from '../../../../../02_bisnessLogik/cart-reducer';
 
-type FormikErrorType = {
+export type FormikErrorType = {
     firstLastName?: string
     cardNumber?: string
     expirationDate?: string
@@ -19,6 +22,7 @@ type FormikErrorType = {
 
 export const PaymentForm = () => {
     const dispatch = useDispatch()
+    const addedCart=useSelector<AppRootStateType,Array<ProductObjType>>(state=>state.cart.addedCart)
     const formik = useFormik({
         initialValues: {
             firstLastName: '',
@@ -56,8 +60,9 @@ export const PaymentForm = () => {
         },
         onSubmit: values => {
             //JSON.stringify(values)
-            alert(JSON.stringify(values, null, 2))
+            // alert(JSON.stringify(values))
             // dispatch(loginTC(values))
+            dispatch(buyTC(addedCart,values))
             formik.resetForm()
         },
     })
