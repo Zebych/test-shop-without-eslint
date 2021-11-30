@@ -1,9 +1,9 @@
 import React, {memo, ReactElement} from 'react';
 import styleContainer from '../../../05_common/styles/Container.module.css';
-import {Product} from './product';
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../02_bisnessLogik/store";
 import {ProductObjType} from "../../../03.1_server simulator/server";
+import {Product} from "./product";
 
 export const Goods = memo(
     (): ReactElement => {

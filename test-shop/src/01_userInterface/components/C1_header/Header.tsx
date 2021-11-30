@@ -8,18 +8,19 @@ import {AppRootStateType} from "../../../02_bisnessLogik/store";
 
 export const Header = memo(
     (): ReactElement => {
-        const totalPrice = useSelector<AppRootStateType, number>(state => state.cart.sumPrice)
+        const totalPrice = useSelector<AppRootStateType, number>
+        (state => state.cart.sumPrice)
 
         return (
-            <div >
-                <Link to="/" style={{textDecoration:'none'}}>
+            <div>
+                <Link to="/" style={{textDecoration: 'none'}}>
                     <Button color={"inherit"}>
                         <p style={{color: '#fff'}}>
                             Goods
                         </p>
                     </Button>
                 </Link>
-                <Link to="/cart" style={{textDecoration:'none'}}>
+                <Link to="/cart" style={{textDecoration: 'none'}}>
                     <Button color={"inherit"}>
                         <img src={cartIcon} alt="cart"/>
                         {totalPrice > 0 && <p style={{color: '#fff'}}>{totalPrice}</p>}

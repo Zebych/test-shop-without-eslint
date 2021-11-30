@@ -74,11 +74,10 @@ export const {
 
 //Thunk
 export const addInCartTC = (id: number) => (dispatch: Dispatch) => {
-    serverAPI.getCart(id).then((res: any) => {
-
-        dispatch(setCart({addProduct: res}))
-        dispatch(totalPrice())
-    })
+        serverAPI.getCart(id).then((res: any) => {
+            dispatch(setCart({addProduct: res}))
+            dispatch(totalPrice())
+        })
 }
 export const buyTC = (addedCart: Array<ProductObjType>, values: FormikErrorType) => (dispatch: Dispatch) => {
     serverAPI.postPurchases(addedCart, values).then((res: any) => {
