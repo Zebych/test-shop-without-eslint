@@ -22,7 +22,7 @@ const App = memo(() => {
 
     return (
         <div>
-            <AppBar position={"static"}>
+            <AppBar position={"fixed"}>
                 <Toolbar>
                     <Header/>
                 </Toolbar>

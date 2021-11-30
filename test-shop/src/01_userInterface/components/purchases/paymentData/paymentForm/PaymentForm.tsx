@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from 'formik';
 import {AppRootStateType} from "../../../../../02_bisnessLogik/store";
 import {ProductObjType} from "../../../../../03.1_server simulator/server";
-import { buyTC } from '../../../../../02_bisnessLogik/cart-reducer';
+import {buyTC} from '../../../../../02_bisnessLogik/cart-reducer';
 
 export type FormikErrorType = {
     firstLastName?: string
@@ -22,7 +22,7 @@ export type FormikErrorType = {
 
 export const PaymentForm = () => {
     const dispatch = useDispatch()
-    const addedCart=useSelector<AppRootStateType,Array<ProductObjType>>(state=>state.cart.addedCart)
+    const addedCart = useSelector<AppRootStateType, Array<ProductObjType>>(state => state.cart.addedCart)
     const formik = useFormik({
         initialValues: {
             firstLastName: '',
@@ -59,10 +59,7 @@ export const PaymentForm = () => {
             return errors;
         },
         onSubmit: values => {
-            //JSON.stringify(values)
-            // alert(JSON.stringify(values))
-            // dispatch(loginTC(values))
-            dispatch(buyTC(addedCart,values))
+            dispatch(buyTC(addedCart, values))
             formik.resetForm()
         },
     })

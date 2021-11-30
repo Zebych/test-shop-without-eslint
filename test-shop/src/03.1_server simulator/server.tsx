@@ -41,7 +41,6 @@ export const serverAPI = {
     },
     postPurchases(addedCart:Array<ProductObjType>,values:FormikErrorType){
         purchasesData.push(addedCart,values)
-        debugger
         return new Promise((res,rej)=>{
             setTimeout(() => {
                 res({result: 'true'})

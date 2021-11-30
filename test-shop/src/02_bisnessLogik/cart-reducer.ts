@@ -51,8 +51,11 @@ const slice = createSlice({
             saveAddedCartToLocalStorage(state.addedCart)
         },
         setBuy(state, action: PayloadAction<{ result: boolean }>) {
-            debugger
             state.conditionBuy = action.payload.result
+        },
+        cartClear(state) {
+            state.addedCart = []
+            saveAddedCartToLocalStorage(state.addedCart)
         }
     }
 })
@@ -65,8 +68,10 @@ export const {
     subtractCart,
     addProductInCart,
     deleteCart,
-    setBuy
+    setBuy,
+    cartClear,
 } = slice.actions
+
 //Thunk
 export const addInCartTC = (id: number) => (dispatch: Dispatch) => {
     serverAPI.getCart(id).then((res: any) => {
@@ -76,10 +81,10 @@ export const addInCartTC = (id: number) => (dispatch: Dispatch) => {
     })
 }
 export const buyTC = (addedCart: Array<ProductObjType>, values: FormikErrorType) => (dispatch: Dispatch) => {
-    debugger
     serverAPI.postPurchases(addedCart, values).then((res: any) => {
-        debugger
         dispatch(setBuy(res))
+        dispatch(cartClear())
+        dispatch(totalPrice())
     })
 }
 

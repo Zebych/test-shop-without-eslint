@@ -4,9 +4,10 @@ import {ProductObjType} from "../03.1_server simulator/server";
 export const getLocalData=()=>{
     try{
         const serializedState = localStorage.getItem('addedProduct')
-        if (serializedState) {
+        if (serializedState !== null) {
           return JSON.parse(serializedState).filter((l: any) => l !== null)
         }
+        return []
     }catch {
         // ignore write errors
     }
