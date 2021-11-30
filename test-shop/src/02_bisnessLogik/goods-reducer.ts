@@ -6,9 +6,7 @@ import { totalPrice } from "./cart-reducer";
 
 const initGoodsState: ResDatatype = {
     result: '',
-    data: [
-        {name: '', photo: '', id: 0, price: 0, toPurchase: 0},
-    ],
+    data: [],
 }
 const slice = createSlice({
     name: 'goods',
