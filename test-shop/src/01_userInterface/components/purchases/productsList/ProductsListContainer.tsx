@@ -9,8 +9,6 @@ import {
     totalPrice
 } from "../../../../02_bisnessLogik/cart-reducer";
 import {ProductsList} from "./ProductsLists";
-import {PaymentForm} from "../paymentData/paymentForm/PaymentForm";
-import {AddressForm} from "../paymentData/addressForm/AddressForm";
 
 
 export const ProductsListContainer = memo(
@@ -40,7 +38,7 @@ export const ProductsListContainer = memo(
         return (
             <div>
                 <div>
-                    <p>список покупок</p>
+                    <p>shopping list</p>
                     {productInCart.map(p => {
                         return <ProductsList name={p.name}
                                              price={p.price}

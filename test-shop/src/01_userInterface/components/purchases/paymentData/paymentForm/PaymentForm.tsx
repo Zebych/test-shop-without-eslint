@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Button, Checkbox,
     FormControl,
@@ -13,23 +13,53 @@ import {ProductObjType} from "../../../../../03.1_server simulator/server";
 import {buyTC} from '../../../../../02_bisnessLogik/cart-reducer';
 
 export type FormikErrorType = {
+    country?: string
+    town?: string
+    city?: string
+    house?: string
+
+    apartment?: string
+    index?: string
+    surname?: string
+    name?: string
+
     firstLastName?: string
     cardNumber?: string
     expirationDate?: string
     password?: string
-    rememberCard?: boolean
+    rememberMe?: boolean
 }
 
 export const PaymentForm = () => {
     const dispatch = useDispatch()
     const addedCart = useSelector<AppRootStateType, Array<ProductObjType>>(state => state.cart.addedCart)
+
+    //media hook
+    const [matches, setMatches] = useState(window.matchMedia("(min-width: 550px)").matches)
+    useEffect(() => {
+        const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
+        window.matchMedia("(min-width: 550px)").addEventListener('change', handler);
+    }, []);
+    const mediaStyle = matches ? {display: 'flex'} : {display: 'block'}
+
+    //formik
     const formik = useFormik({
         initialValues: {
+            country: '',
+            town: '',
+            city: '',
+            house: '',
+
+            apartment: '',
+            index: '',
+            surname: '',
+            name: '',
+
             firstLastName: '',
             cardNumber: '',
             expirationDate: '',
             password: '',
-            rememberCard: false
+            rememberMe: false
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -63,10 +93,71 @@ export const PaymentForm = () => {
             formik.resetForm()
         },
     })
+
     return (
         <FormControl>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit} style={mediaStyle}>
+                <FormGroup>
+                    <TextField
+                        variant={"outlined"}
+                        label={"Country"}
+                        margin={"normal"}
+                        {...formik.getFieldProps('country')}
 
+                    />
+                    <TextField
+                        variant={"outlined"}
+                        label={"Town"}
+                        margin={"normal"}
+                        {...formik.getFieldProps('town')}
+
+                    />
+                    <TextField
+                        variant={"outlined"}
+                        label={"City"}
+                        margin={"normal"}
+                        {...formik.getFieldProps('city')}
+
+                    />
+                    <TextField
+                        variant={"outlined"}
+                        label={"House"}
+                        margin={"normal"}
+                        {...formik.getFieldProps('house')}
+
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <TextField
+                        variant={"outlined"}
+                        label={"Apartment"}
+                        margin={"normal"}
+                        {...formik.getFieldProps('apartment')}
+
+                    />
+                    <TextField
+                        variant={"outlined"}
+                        type={"tel"}
+                        label={"index"}
+                        margin={"normal"}
+                        {...formik.getFieldProps('index')}
+
+                    />
+                    <TextField
+                        variant={"outlined"}
+                        label={"Surname"}
+                        margin={"normal"}
+                        {...formik.getFieldProps('surname')}
+
+                    />
+                    <TextField
+                        variant={"outlined"}
+                        label={"Name"}
+                        margin={"normal"}
+                        {...formik.getFieldProps('name')}
+
+                    />
+                </FormGroup>
                 <FormGroup>
                     <TextField
                         variant={"outlined"}
@@ -108,17 +199,18 @@ export const PaymentForm = () => {
                     <div style={{color: 'red'}}>{formik.errors.password}</div>}
 
                     <FormControlLabel
-                        label={'remember card'}
-                        control={<Checkbox {...formik.getFieldProps('rememberCard')}/>}
-                        checked={formik.values.rememberCard}
+                        label={'remember me'}
+                        control={<Checkbox {...formik.getFieldProps('rememberMe')}/>}
+                        checked={formik.values.rememberMe}
                     />
 
                     <Button type={"submit"} variant={"contained"} color={"primary"}>
-                        оплатить
+                        buy
                     </Button>
                 </FormGroup>
             </form>
         </FormControl>
-    );
+    )
+        ;
 };
 

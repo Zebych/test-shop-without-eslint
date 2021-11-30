@@ -22,8 +22,8 @@ const App = memo(() => {
 
     return (
         <div>
-            <AppBar position={"fixed"}>
-                <Toolbar>
+            <AppBar position={"static"}>
+                <Toolbar style={{display:'flex',justifyContent: 'flex-end'}}>
                     <Header/>
                 </Toolbar>
             </AppBar>

@@ -11,7 +11,7 @@ export const Header = memo(
         const totalPrice = useSelector<AppRootStateType, number>(state => state.cart.sumPrice)
 
         return (
-            <div>
+            <div >
                 <Link to="/">
                     <Button color={"inherit"}>Goods</Button>
                 </Link>
