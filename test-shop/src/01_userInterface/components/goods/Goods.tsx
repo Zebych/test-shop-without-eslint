@@ -1,6 +1,5 @@
 import React, {memo, ReactElement} from 'react';
 import styleContainer from '../../../05_common/styles/Container.module.css';
-import styles from './Goods.module.css';
 import {Product} from './product';
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../02_bisnessLogik/store";
@@ -12,8 +11,8 @@ export const Goods = memo(
         (state => state.goods.data)
 
         return (
-            <div className={styles.goodsBlock}>
-                <div className={`${styleContainer.container} ${styles.goodsContainer}`}>
+            <div style={{ display: 'flex',justifyContent: 'space-around'}}>
+                <div className={styleContainer.container}>
                     {goods.map((g) => {
                         return <Product photo={g.photo}
                                         name={g.name}

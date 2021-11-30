@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Dispatch} from "redux";
 import {ProductObjType, serverAPI} from "../03.1_server simulator/server";
 import {saveAddedCartToLocalStorage} from "../06_utils/localStorage";
-import {FormikErrorType} from "../01_userInterface/components/purchases/paymentData/paymentForm/PaymentForm";
+import {FormikErrorType} from "../01_userInterface/components/purchases/paymentData/PaymentForm";
 
 const initCartState: InitCartType = {
     sumPrice: 0,

@@ -39,7 +39,7 @@ export const Product: FC<ProductPropsType> = memo(
         }
 
         return (
-            <div>
+            <div style={{padding:'20px'}}>
                 <img src={photo} alt="photo" style={{width: '300px', height: '300px'}}/>
                 <p>{name}</p>
                 <h3>{price}</h3>

@@ -5,7 +5,7 @@ import photo4 from '../04_assets/img/kruzhka_sgushchenka_img.webp';
 import photo5 from '../04_assets/img/people_2_mug_chameleon_front_whitered_500.jpg';
 import photo7 from '../04_assets/img/pic1white.jpg';
 import photo6 from '../04_assets/img/product_57508_0_0_0.jpg';
-import {FormikErrorType} from "../01_userInterface/components/purchases/paymentData/paymentForm/PaymentForm";
+import {FormikErrorType} from "../01_userInterface/components/purchases/paymentData/PaymentForm";
 
 const arrData: Array<ProductObjType> = [
     {name: 'mug1', photo: photo1, id: 1, price: 50, toPurchase: 1, inStock: 10},

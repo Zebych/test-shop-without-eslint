@@ -43,12 +43,15 @@ export const ProductsList: FC<ProductsListPropsType> = memo(
                     <div>
                         <p>{price}</p>
                     </div>
-                    <div style={{display:'flex'}}>
+                    <div style={{display: 'flex'}}>
                         {toPurchase > 1 ?
-                            <Button variant={"contained"} color={"primary"} onClick={onSubtractProductClick}>-</Button>
-                            : <Button variant={"contained"} color={"primary"} onClick={onDeleteProductClick}>-</Button>}
-                        <div>{toPurchase}</div>
-                        <Button variant={"contained"} color={"primary"} onClick={onAddProductClick}>+</Button>
+                            <Button variant={"contained"} color={"primary"}
+                                    onClick={onSubtractProductClick}>-</Button>
+                            : <Button variant={"contained"} color={"primary"}
+                                      onClick={onDeleteProductClick}>-</Button>}
+                        <div style={{padding: '20ox'}}>{toPurchase}</div>
+                        <Button variant={"contained"} color={"primary"}
+                                onClick={onAddProductClick}>+</Button>
                     </div>
                 </div>
             </div>

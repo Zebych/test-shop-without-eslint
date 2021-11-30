@@ -12,12 +12,17 @@ export const Header = memo(
 
         return (
             <div >
-                <Link to="/">
-                    <Button color={"inherit"}>Goods</Button>
-                </Link>
-                <Link to="/cart">
+                <Link to="/" style={{textDecoration:'none'}}>
                     <Button color={"inherit"}>
-                        <img src={cartIcon} alt="cart"/> {totalPrice > 0 && totalPrice}
+                        <p style={{color: '#fff'}}>
+                            Goods
+                        </p>
+                    </Button>
+                </Link>
+                <Link to="/cart" style={{textDecoration:'none'}}>
+                    <Button color={"inherit"}>
+                        <img src={cartIcon} alt="cart"/>
+                        {totalPrice > 0 && <p style={{color: '#fff'}}>{totalPrice}</p>}
                     </Button>
                 </Link>
             </div>

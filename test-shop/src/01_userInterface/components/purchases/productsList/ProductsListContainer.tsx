@@ -31,15 +31,15 @@ export const ProductsListContainer = memo(
             dispatch(deleteCart({id}))
         }
         const AddProduct = (id: number) => {
-            debugger
             dispatch(addProductInCart({id}))
         }
 
         return (
             <div>
                 <div>
-                    <p>shopping list</p>
-                    {productInCart.map(p => {
+                    <p>shopping list:</p>
+                    <div style={{padding:'20px'}}>
+                        {productInCart.map(p => {
                         return <ProductsList name={p.name}
                                              price={p.price}
                                              picture={p.photo}
@@ -51,8 +51,10 @@ export const ProductsListContainer = memo(
                         />
                     })
                     }
+                    </div>
                     <div>
-                        {amountOfPurchases>0 && <span>amount to pay: {amountOfPurchases}</span>}
+                        {amountOfPurchases > 0 &&
+                        <span>amount to pay: {amountOfPurchases}</span>}
                     </div>
                 </div>
 

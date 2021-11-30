@@ -1,7 +1,6 @@
 import React, {memo, useEffect} from 'react';
 import {SetRoute} from './01_userInterface/01.2_navigate/SetRoute';
 import {Header} from './01_userInterface/components/C1_header/Header';
-import './App.css';
 import {setCart} from "./02_bisnessLogik/cart-reducer";
 import {useDispatch} from "react-redux";
 import {ProductObjType} from './03.1_server simulator/server';

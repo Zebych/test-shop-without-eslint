@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {
     Button, Checkbox,
     FormControl,
@@ -8,9 +8,9 @@ import {
 } from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from 'formik';
-import {AppRootStateType} from "../../../../../02_bisnessLogik/store";
-import {ProductObjType} from "../../../../../03.1_server simulator/server";
-import {buyTC} from '../../../../../02_bisnessLogik/cart-reducer';
+import {AppRootStateType} from "../../../../02_bisnessLogik/store";
+import {ProductObjType} from "../../../../03.1_server simulator/server";
+import {buyTC} from '../../../../02_bisnessLogik/cart-reducer';
 
 export type FormikErrorType = {
     country?: string
@@ -29,18 +29,14 @@ export type FormikErrorType = {
     password?: string
     rememberMe?: boolean
 }
+type PaymentFormPropsType = {
+    mediaStyle?: object
+}
 
-export const PaymentForm = () => {
+export const PaymentForm: FC<PaymentFormPropsType> = ({mediaStyle}) => {
     const dispatch = useDispatch()
     const addedCart = useSelector<AppRootStateType, Array<ProductObjType>>(state => state.cart.addedCart)
 
-    //media hook
-    const [matches, setMatches] = useState(window.matchMedia("(min-width: 550px)").matches)
-    useEffect(() => {
-        const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
-        window.matchMedia("(min-width: 550px)").addEventListener('change', handler);
-    }, []);
-    const mediaStyle = matches ? {display: 'flex'} : {display: 'block'}
 
     //formik
     const formik = useFormik({
@@ -95,7 +91,7 @@ export const PaymentForm = () => {
     })
 
     return (
-        <FormControl>
+        <FormControl style={{paddingLeft: '50px'}}>
             <form onSubmit={formik.handleSubmit} style={mediaStyle}>
                 <FormGroup>
                     <TextField
@@ -127,6 +123,7 @@ export const PaymentForm = () => {
 
                     />
                 </FormGroup>
+
                 <FormGroup>
                     <TextField
                         variant={"outlined"}
@@ -158,6 +155,7 @@ export const PaymentForm = () => {
 
                     />
                 </FormGroup>
+
                 <FormGroup>
                     <TextField
                         variant={"outlined"}
